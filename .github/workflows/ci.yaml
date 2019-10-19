@@ -17,11 +17,16 @@ jobs:
               run: npm test
             - name: Build Docker image
               run: |
-                docker build . -t docker.pkg.github.com/matdurand/cicd-demo-app/cicd-demo-app:${GITHUB_SHA:0:8}
-            - name: Publish to github package registry
-              run: |
+                export PACKAGE_CURRENT_VERSION="$(npx -c 'echo "$npm_package_version"')"
+                export COMMIT_HASH=${GITHUB_SHA:0:8}
+                export GIT_BRANCH=$(echo "$GITHUB_REF" | tr '[:upper:]' '[:lower:]' | sed 's/refs\/heads\///g' | sed 's/[\/]/-/g' | sed 's/[^a-z0-9._-]//g')
+                export DOCKER_TAG_BASE=docker.pkg.github.com/matdurand/cicd-demo-app/${PACKAGE_CURRENT_VERSION}-${GIT_BRANCH}
+                export DOCKER_TAG_COMMIT=${DOCKER_TAG_BASE}:${COMMIT_HASH}
+                export DOCKER_TAG_LATEST=${DOCKER_TAG_BASE}:latest
+                docker build . -t ${DOCKER_TAG_COMMIT} -t ${DOCKER_TAG_LATEST}
                 echo "$DOCKER_PASSWORD" | docker login docker.pkg.github.com -u "$DOCKER_USERNAME" --password-stdin
-                docker push docker.pkg.github.com/matdurand/cicd-demo-app/cicd-demo-app:${GITHUB_SHA:0:8}
+                docker push ${DOCKER_TAG_COMMIT}
+                docker push ${DOCKER_TAG_LATEST}
               env:
                 DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
                 DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
