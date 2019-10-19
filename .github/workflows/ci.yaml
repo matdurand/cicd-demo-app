@@ -1,5 +1,5 @@
 name: CI
-on: pull_request
+on: push
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -15,3 +15,13 @@ jobs:
               run: npm ci
             - name: Running tests
               run: npm test
+            - name: Build Docker image
+              run: |
+                docker build . -t docker.pkg.github.com/matdurand/cicd-demo-app/cicd-demo-app:${GITHUB_SHA:0:8}
+            - name: Publish to github package registry
+              run: |
+                echo "$DOCKER_PASSWORD" | docker login docker.pkg.github.com -u "$DOCKER_USERNAME" --password-stdin
+                docker push docker.pkg.github.com/matdurand/cicd-demo-app/cicd-demo-app:${GITHUB_SHA:0:8}
+              env:
+                DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+                DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
