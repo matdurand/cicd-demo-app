@@ -20,11 +20,11 @@ jobs:
                 export PACKAGE_CURRENT_VERSION="$(npx -c 'echo "$npm_package_version"')"
                 export COMMIT_HASH=${GITHUB_SHA:0:8}
                 export GIT_BRANCH=$(echo "$GITHUB_REF" | tr '[:upper:]' '[:lower:]' | sed 's/refs\/heads\///g' | sed 's/[\/]/-/g' | sed 's/[^a-z0-9._-]//g')
-                export DOCKER_TAG_BASE=docker.pkg.github.com/matdurand/cicd-demo-app/${PACKAGE_CURRENT_VERSION}-${GIT_BRANCH}
-                export DOCKER_TAG_COMMIT=${DOCKER_TAG_BASE}:${COMMIT_HASH}
-                export DOCKER_TAG_LATEST=${DOCKER_TAG_BASE}:latest
+                export DOCKER_TAG_BASE=matdurand/cicd-demo-app
+                export DOCKER_TAG_COMMIT=${DOCKER_TAG_BASE}:${PACKAGE_CURRENT_VERSION}-${GIT_BRANCH}-${COMMIT_HASH}
+                export DOCKER_TAG_LATEST=${DOCKER_TAG_BASE}:${PACKAGE_CURRENT_VERSION}-${GIT_BRANCH}-latest
                 docker build . -t ${DOCKER_TAG_COMMIT} -t ${DOCKER_TAG_LATEST}
-                echo "$DOCKER_PASSWORD" | docker login docker.pkg.github.com -u "$DOCKER_USERNAME" --password-stdin
+                echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
                 docker push ${DOCKER_TAG_COMMIT}
                 docker push ${DOCKER_TAG_LATEST}
               env:
