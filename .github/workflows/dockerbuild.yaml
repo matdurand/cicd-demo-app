@@ -7,4 +7,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build Docker image
         run: |
-          docker build . -t ${GITHUB_SHA:0:8}
+          docker build . -t docker.pkg.github.com/matdurand/cicd-demo-app/cicd-demo-app:${GITHUB_SHA:0:8}
+      - name: Publish to github package registry
+        run: |
+          docker push docker.pkg.github.com/matdurand/cicd-demo-app/cicd-demo-app:${GITHUB_SHA:0:8}
