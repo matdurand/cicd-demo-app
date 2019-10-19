@@ -1,0 +1,25 @@
+{
+  "name": "cicd-demo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "bili src/index.js --minimal --format cjs --module-name hello-world",
+    "test": "jest",
+    "start": "npm run build &&  node dist/index.js"
+  },
+  "files": [
+    "dist/*.js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "bili": "^4.8.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2"
+  },
+  "browserslist": ["node 10"]
+}
