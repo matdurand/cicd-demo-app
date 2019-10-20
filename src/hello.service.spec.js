@@ -1,4 +1,6 @@
 import {HelloService} from './hello.service';
+import tmp from 'tmp';
+import fs from 'fs';
 
 describe('hello service', () => {
   const service = HelloService;
@@ -22,6 +24,25 @@ describe('hello service', () => {
 
     it('should expose the caramilk secret if defined', () => {
       expect(service.sayHello("Bob")).toEqual("Hello Bob. The caramilk secret is abc");
+    });
+  });
+
+  describe('when a secret file is defined', () => {
+    let secretFile;
+
+    beforeEach(() => {
+      secretFile = tmp.fileSync();
+      fs.writeFileSync(secretFile.name, "This is a secret");
+      process.env.SECRET_FILE = secretFile.name;
+    })
+
+    afterEach(() => {
+      delete process.env.SECRET_FILE;
+      secretFile.removeCallback();
+    });
+
+    it('should read the secret file and return it with the greeting', () => {
+      expect(service.sayHello("Bob")).toEqual("Hello Bob. This is a secret");
     });
   });
 
