@@ -25,10 +25,5 @@
   },
   "browserslist": [
     "node 10"
-  ],
-  "standard-version": {
-    "skip": {
-      "tag": true
-    }
-  }
+  ]
 }
