@@ -21,7 +21,8 @@
     "bili": "^4.8.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
-    "standard-version": "7.0.0"
+    "standard-version": "7.0.0",
+    "tmp": "^0.1.0"
   },
   "browserslist": [
     "node 10"
