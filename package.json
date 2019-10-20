@@ -6,7 +6,8 @@
   "scripts": {
     "build": "bili src/index.js --minimal --format cjs --module-name hello-world",
     "test": "jest",
-    "start": "npm run build &&  node dist/index.js"
+    "start": "npm run build &&  node dist/index.js",
+    "release": "standard-version"
   },
   "files": [
     "dist/*.js"
@@ -19,7 +20,8 @@
   "devDependencies": {
     "bili": "^4.8.1",
     "jest": "^24.9.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "standard-version": "7.0.0"
   },
   "browserslist": ["node 10"]
 }
