@@ -7,7 +7,7 @@ export const HelloService = {
       greeting += ". The caramilk secret is " + process.env.SECRET_CARAMILK;
     }
     if (process.env.SECRET_FILE) {
-      const secretFileContent = fs.readFileSync(process.env.SECRET_FILE);
+      const secretFileContent = fs.readFileSync(process.env.SECRET_FILE, "utf8");
       if (secretFileContent) {
         greeting += ". " + secretFileContent;
       }
