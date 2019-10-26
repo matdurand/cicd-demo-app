@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: nginxmatdurand/cicd-demo-app
+  repository: matdurand/cicd-demo-app
   tag: 1.1.1-master-latest
   pullPolicy: Always
 
