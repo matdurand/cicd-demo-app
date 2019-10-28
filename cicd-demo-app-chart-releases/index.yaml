@@ -3,11 +3,11 @@ entries:
   cicd-demo-app-chart:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-27T21:03:54.752914991-04:00"
+    created: "2019-10-27T21:23:07.834512828-04:00"
     description: A Helm chart for cicd-demo-app
-    digest: 034d6699ca44ab60e46a3205b63810a1cb323b90f808fd78c49dc8906440f77f
+    digest: 4aea7aa1dedee14403096e73981d806779e657f488589bb61b41441f13f41779
     name: cicd-demo-app-chart
     urls:
     - https://matdurand.github.io/cicd-demo-app/cicd-demo-app-chart-releases/cicd-demo-app-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2019-10-27T21:03:54.752664114-04:00"
+generated: "2019-10-27T21:23:07.834263384-04:00"
