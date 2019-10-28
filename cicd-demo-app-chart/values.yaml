@@ -16,3 +16,6 @@ service:
 resources: {}
 
 nodeSelector: {}
+
+secrets:
+  caramilkSecret: c'est un moule
