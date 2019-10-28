@@ -8,10 +8,12 @@ export const HelloService = {
     }
     if (process.env.SECRET_FILE) {
       console.log('Secret file found', process.env.SECRET_FILE);
-      const secretFileContent = fs.readFileSync(process.env.SECRET_FILE, "utf8");
-      if (secretFileContent) {
-        console.log('Secret file has content');
-        greeting += ". " + secretFileContent;
+      if (fs.existsSync(process.env.SECRET_FILE)) {
+        const secretFileContent = fs.readFileSync(process.env.SECRET_FILE, "utf8");
+        if (secretFileContent) {
+          console.log('Secret file has content');
+          greeting += ". " + secretFileContent;
+        }
       }
     }
     return greeting;
